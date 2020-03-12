@@ -80,8 +80,9 @@ class PlayerAI(BaseAI):
         else:
             val = math.inf
             for child in node.get_children():
-                val = min(val, self.alphabeta(Node(child, parent=node), depth - 1, alpha, beta)[0])
+                cval, move = self.alphabeta(Node(child, parent=node), depth - 1, alpha, beta)
+                val = min(val, cval)
                 beta = min(beta, val)
                 if alpha >= beta:
                     break
-            return val, 0
+            return val, move

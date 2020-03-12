@@ -53,7 +53,7 @@ class Node:
 
 
 class PlayerAI(BaseAI):
-    def __init__(self, depth=4):
+    def __init__(self, depth=5):
         self.depth = depth
 
     def getMove(self, grid):

@@ -60,12 +60,7 @@ class PlayerAI(BaseAI):
         return self.alphabeta(Node(grid.clone()), self.depth)[1]
 
     def heuristic(self, grid):
-        val = 0
-        for row in grid.map:
-            for x in row:
-                val += x
-
-        return val
+        return len(grid.getAvailableCells())
 
     def alphabeta(self, node, depth, alpha=-math.inf, beta=math.inf):
         if (depth == 0) or (not node.grid.canMove()):

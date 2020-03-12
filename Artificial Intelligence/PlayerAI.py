@@ -50,16 +50,11 @@ class PlayerAI(BaseAI):
     def getMove(self, grid):
         return self.alphabeta(grid.clone(), self.depth)[1]
 
-    def get_children(self, grid):
-        if self.turn == 1:
-            return self.get_max_children()
-        return self.get_min_children()
-
     def get_max_children(self, grid):
         children = []
-        moves = self.grid.getAvailableMoves()
+        moves = grid.getAvailableMoves()
         for move in moves:
-            new = self.grid.clone()
+            new = grid.clone()
             new.move(move)
             children.append((new, move))
 
@@ -67,12 +62,12 @@ class PlayerAI(BaseAI):
 
     def get_min_children(self, grid):
         children = []
-        cells = self.grid.getAvailableCells()
+        cells = grid.getAvailableCells()
         for c in cells:
-            new = self.grid.clone()
+            new = grid.clone()
             new.setCellValue(c, 2)
             children.append(new)
-            new = self.grid.clone()
+            new = grid.clone()
             new.setCellValue(c, 4)
             children.append(new)
 

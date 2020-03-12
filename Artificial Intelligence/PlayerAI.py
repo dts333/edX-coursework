@@ -16,8 +16,7 @@ class Node:
         self.alpha = -math.inf
         self.beta = math.inf
         if parent:
-            self.parent = parent
-            self.turn = -1 * self.parent.turn
+            self.turn = -1 * parent.turn
         else:
             self.turn = 1
 

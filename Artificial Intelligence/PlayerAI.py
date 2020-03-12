@@ -17,10 +17,8 @@ class Node:
         self.beta = math.inf
         if parent:
             self.parent = parent
-            self.depth = self.parent.depth + 1
             self.turn = -1 * self.parent.turn
         else:
-            self.depth = 0
             self.turn = 1
 
     def get_children(self):

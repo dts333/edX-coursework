@@ -44,10 +44,18 @@ class PlayerAI(BaseAI):
 
     def heuristic(self, grid):
         val = 0
+        map = grid.map
         for x in range(4):
             for y in range(4):
-                if grid.map[x][y] == 0:
+                z = map[x][y]
+                if z == 0:
                     val += 1
+                if x < 3:
+                    if map[x + 1][y] == z:
+                        val += 0.6
+                if y < 3:
+                    if map[x][y + 1] == z:
+                        val += 0.6
         return val
 
     def alphabeta(self, grid, depth, alpha=-math.inf, beta=math.inf, max_turn=True):

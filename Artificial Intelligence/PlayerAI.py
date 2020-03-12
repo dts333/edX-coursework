@@ -6,6 +6,7 @@ Created on Wed Mar 11 15:36:31 2020
 @author: DannySwift
 """
 import math
+import time
 
 from BaseAI import BaseAI
 
@@ -15,6 +16,7 @@ class PlayerAI(BaseAI):
         self.depth = depth
 
     def getMove(self, grid):
+        self.time = time.clock()
         return self.alphabeta(grid.clone(), self.depth)[1]
 
     def get_max_children(self, grid):
@@ -44,7 +46,7 @@ class PlayerAI(BaseAI):
         return len(grid.getAvailableCells())
 
     def alphabeta(self, grid, depth, alpha=-math.inf, beta=math.inf, max_turn=True):
-        if (depth == 0) or (not grid.canMove()):
+        if (time.clock() - self.time >= 0.19) or (not grid.canMove()):
             return self.heuristic(grid), 0
         if max_turn:
             val = -math.inf

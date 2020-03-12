@@ -63,7 +63,7 @@ class PlayerAI(BaseAI):
         if node.turn == 1:
             val = -math.inf
             chosen_move = 0
-            for child, move in node.get_children():
+            for child, move in node.get_max_children():
                 ival = val
                 val = max(val, self.alphabeta(Node(child, parent=node), depth - 1, alpha, beta)[0])
                 if ival != val:
@@ -74,7 +74,7 @@ class PlayerAI(BaseAI):
             return val, chosen_move
         else:
             val = math.inf
-            for child in node.get_children():
+            for child in node.get_min_children():
                 cval, move = self.alphabeta(Node(child, parent=node), depth - 1, alpha, beta)
                 val = min(val, cval)
                 beta = min(beta, val)

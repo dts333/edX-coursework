@@ -43,7 +43,12 @@ class PlayerAI(BaseAI):
         return children
 
     def heuristic(self, grid):
-        return len(grid.getAvailableCells())
+        val = 0
+        for x in range(4):
+            for y in range(4):
+                if grid.map[x][y] == 0:
+                    val += 1
+        return val
 
     def alphabeta(self, grid, depth, alpha=-math.inf, beta=math.inf, max_turn=True):
         if (time.clock() - self.time >= 0.19) or (not grid.canMove()):
@@ -53,7 +58,8 @@ class PlayerAI(BaseAI):
             chosen_move = 0
             for child, move in self.get_max_children(grid):
                 ival = val
-                val = max(val, self.alphabeta(child, depth - 1, alpha, beta, False)[0])
+                cval, _ = self.alphabeta(child, depth - 1, alpha, beta, False)
+                val = max(val, cval)
                 if ival != val:
                     chosen_move = move
                 alpha = max(alpha, val)

@@ -13,8 +13,6 @@ from BaseAI import BaseAI
 class Node:
     def __init__(self, grid, parent=None):
         self.grid = grid
-        self.alpha = -math.inf
-        self.beta = math.inf
         if parent:
             self.turn = -1 * parent.turn
         else:

@@ -6,6 +6,7 @@ Created on Wed Mar 11 15:36:31 2020
 @author: DannySwift
 """
 import math
+import sys
 import time
 
 from BaseAI import BaseAI
@@ -14,6 +15,7 @@ from BaseAI import BaseAI
 class PlayerAI(BaseAI):
     def __init__(self, depth=5):
         self.depth = depth
+        sys.setrecursionlimit(sys.getrecursionlimit() * 2)
 
     def getMove(self, grid):
         self.time = time.clock()

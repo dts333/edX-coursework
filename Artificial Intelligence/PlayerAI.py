@@ -44,18 +44,33 @@ class PlayerAI(BaseAI):
 
     def heuristic(self, grid):
         val = 0
+        tile = 0
+        mono = True
         map = grid.map
         for x in range(4):
+            z = 0
             for y in range(4):
-                z = map[x][y]
+                cur = map[x][y]
+                if cur < z:
+                    mono = False
+                z = cur
                 if z == 0:
                     val += 1
                 if x < 3:
                     if map[x + 1][y] == z:
-                        val += 0.6
+                        val += 0.5
+                    # if map[x+1][y] == z/2:
+                    #    val += 0.1
                 if y < 3:
                     if map[x][y + 1] == z:
-                        val += 0.6
+                        val += 0.5
+                    # if map[x][y+1] == z/2:
+                    #    val += 0.1
+                else:
+                    tile = max(tile, z)
+            if mono == True:
+                val += 0.1
+        val += tile
         return val
 
     def alphabeta(self, grid, depth, alpha=-math.inf, beta=math.inf, max_turn=True):

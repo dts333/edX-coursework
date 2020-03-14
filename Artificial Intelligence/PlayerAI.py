@@ -73,6 +73,18 @@ class PlayerAI(BaseAI):
             if mono == True:
                 val += 0.1
         val += tile
+
+        for y in range(4):
+            mono = True
+            z = 0
+            for x in range(4):
+                cur = map[x][y]
+                if cur < z:
+                    mono = False
+                z = cur
+            if mono:
+                val += 0.1
+
         return val
 
     def alphabeta(self, grid, depth, alpha=-math.inf, beta=math.inf, max_turn=True):

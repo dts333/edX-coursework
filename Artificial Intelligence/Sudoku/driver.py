@@ -95,8 +95,40 @@ def ac3(sudoku):
     return True
 
 
-# def bts(sudoku):
-# To-do
+def bts(sudoku):
+    unassigned = queue.SimpleQueue()
+    assignment = {}
+    for key in sudoku.sudoku.keys():
+        if sudoku.sudoku[key] == 0:
+            unassigned.put(key)
+        else:
+            assignment[key] = sudoku.sudoku[key]
+
+    def recbts(assignment, csp):
+        if len(assignment.keys()) == 81:
+            return assignment
+        var = unassigned.get()
+        for i in range(1, 10):
+            works = True
+            for c in CONSTRAINTS:
+                if c.x == var:
+                    try:
+                        if i == assignment[c.y]:
+                            works = False
+                            break
+                    except KeyError:
+                        pass
+
+            if works:
+                assignment[var] = i
+                result = recbts(assignment, csp)
+                if result:
+                    return result
+
+        assignment.pop(var, None)
+        return False
+
+    return recbts(assignment, sudoku)
 
 
 if __name__ == "__main__":
@@ -113,4 +145,4 @@ if __name__ == "__main__":
     sudoku = Sudoku(
         "000260701680070090190004500820100040004602900050003028009300074040050036703018000"
     )
-    assignment = ac3(sudoku)
+    assignment = bts(sudoku)

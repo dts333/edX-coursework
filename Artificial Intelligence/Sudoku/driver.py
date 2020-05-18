@@ -98,7 +98,7 @@ def bts(sudoku):
         else:
             assignment[key] = sudoku.sudoku[key]
 
-    def recbts(assignment, csp):
+    def recbts(assignment):
         if len(assignment.keys()) == 81:
             return assignment
         var = unassigned.get()
@@ -115,14 +115,14 @@ def bts(sudoku):
 
             if works:
                 assignment[var] = i
-                result = recbts(assignment, csp)
+                result = recbts(assignment)
                 if result:
                     return result
 
         assignment.pop(var, None)
         return False
 
-    return recbts(assignment, sudoku)
+    return recbts(assignment)
 
 
 if __name__ == "__main__":

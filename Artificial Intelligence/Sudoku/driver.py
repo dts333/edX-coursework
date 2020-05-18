@@ -49,9 +49,43 @@ class Sudoku:
         for i in range(9):
             for j in range(9):
                 self.sudoku[f"{ROWS[i]}{j+1}"] = board[9 * i + j]
+        self.D = {}
+        for key in self.sudoku.keys():
+            if self.sudoku[key] == 0:
+                self.D[key] = [i for i in self.domain]
+            else:
+                self.D[key] = [self.sudoku[key]]
+    
+
+    def arc_reduce(self, x, y):
+        change = False
+        for vx in self.D[x]:
+            prob = True
+            for vy in self.D[y]:
+                if vx != vy:
+                    prob = False
+                    break
+            if prob:
+                self.D[x].remove(vx)
+                change = True
+
+        return change
 
 def ac3(sudoku):
-    #To-do
+    q = queue.SimpleQueue()
+    for c in CONSTRAINTS:
+        q.put(c)
+    while not q.empty():
+        c = q.get()
+        if sudoku.arc_reduce(c.x, c.y):
+            if len[sudoku.D[c.x]] == 0:
+                return False
+            for c2 in CONSTRAINTS:
+                if (c.x == c2.x) or (c.x == c2.y):
+                    if not (c.y == c2.y):
+                        q.put(c2)
+    
+    return True
 
 def bts(sudoku):
     #To-do

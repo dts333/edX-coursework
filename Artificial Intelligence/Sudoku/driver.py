@@ -15,16 +15,15 @@ class Constraint:
 
 
 ROWS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-SQUARES = [["A1", "A2", "A3", "B1", "B2"]]
 CONSTRAINTS = []
-used_rows = []
 for row in ROWS:
-    used_rows.append(row)
     for i in range(1, 10):
-        for j in range(i + 1, 10):
+        for j in range(1, 10):
+            if i == j:
+                continue
             CONSTRAINTS.append(Constraint(f"{row}{i}", f"{row}{j}"))
         for r in ROWS:
-            if r not in used_rows:
+            if r != row:
                 CONSTRAINTS.append(Constraint(f"{row}{i}", f"{r}{i}"))
 for s1 in range(3):
     for s2 in range(3):

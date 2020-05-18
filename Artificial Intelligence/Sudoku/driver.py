@@ -7,12 +7,6 @@ class Constraint:
         self.x = x
         self.y = y
 
-    def check(self, sudoku):
-        if sudoku.sudoku[x] == sudoku.sudoku[y]:
-            return False
-        else:
-            return True
-
 
 ROWS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
 CONSTRAINTS = []

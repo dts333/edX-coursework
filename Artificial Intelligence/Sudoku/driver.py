@@ -74,7 +74,7 @@ class Sudoku:
 
 
 def ac3(sudoku):
-    q = queue.SimpleQueue()
+    q = queue.Queue()
     for c in CONSTRAINTS:
         q.put(c)
     while not q.empty():
@@ -92,7 +92,7 @@ def ac3(sudoku):
 
 #%%
 def bts(sudoku):
-    unassigned = queue.SimpleQueue()
+    unassigned = queue.Queue()
     assignment = {}
     for key in sudoku.sudoku.keys():
         if sudoku.sudoku[key] == 0:
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     if sudoku.solved():
         assignment = ""
         for key in sudoku.D.keys():
-            assignment += sudoku.D[key]
+            assignment += sudoku.D[key][0]
         assignment += " AC3"
     else:
         assignment = bts(sudoku)

@@ -131,20 +131,20 @@ def bts(sudoku):
 
 #%%
 if __name__ == "__main__":
-    """     board = sys.argv[1]
+    board = sys.argv[1]
     sudoku = Sudoku(board)
-    assignment = ac3(sudoku)
-    if solved(assignment):
+    ac3(sudoku)
+    if sudoku.solved():
+        assignment = ""
+        for key in sudoku.D.keys():
+            assignment += sudoku.D[key]
         assignment += " AC3"
     else:
-        sudoku = Sudoku(board)
         assignment = bts(sudoku)
-        assignment += " BTS" """
+        assignment += " BTS"
 
-    sudoku = Sudoku(
-        "000260701680070090190004500820100040004602900050003028009300074040050036703018000"
-    )
-    assignment = bts(sudoku)
+    with open("output.txt", "w") as f:
+        f.write(assignment)
 
 
 # %%

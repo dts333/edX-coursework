@@ -1,3 +1,4 @@
+#%%
 import queue
 import sys
 
@@ -89,6 +90,7 @@ def ac3(sudoku):
     return True
 
 
+#%%
 def bts(sudoku):
     unassigned = queue.SimpleQueue()
     assignment = {}
@@ -99,6 +101,7 @@ def bts(sudoku):
             assignment[key] = sudoku.sudoku[key]
 
     def recbts(assignment):
+        print(len(assignment))
         if len(assignment.keys()) == 81:
             return assignment
         var = unassigned.get()
@@ -120,11 +123,13 @@ def bts(sudoku):
                     return result
 
         assignment.pop(var, None)
+        unassigned.put(var)
         return False
 
     return recbts(assignment)
 
 
+#%%
 if __name__ == "__main__":
     """     board = sys.argv[1]
     sudoku = Sudoku(board)
@@ -140,3 +145,6 @@ if __name__ == "__main__":
         "000260701680070090190004500820100040004602900050003028009300074040050036703018000"
     )
     assignment = bts(sudoku)
+
+
+# %%

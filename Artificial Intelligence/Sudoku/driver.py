@@ -1,4 +1,5 @@
 #%%
+import heapq
 import queue
 import sys
 
@@ -92,19 +93,18 @@ def ac3(sudoku):
 
 #%%
 def bts(sudoku):
-    unassigned = queue.Queue()
+    unassigned = []
     assignment = {}
     for key in sudoku.sudoku.keys():
         if sudoku.sudoku[key] == 0:
-            unassigned.put(key)
+            unassigned.append(key)
         else:
             assignment[key] = sudoku.sudoku[key]
 
     def recbts(assignment):
-        print(len(assignment))
-        if len(assignment.keys()) == 81:
+        if len(assignment) == 81:
             return assignment
-        var = unassigned.get()
+        var = heapq.heappop(unassigned)
         for i in range(1, 10):
             works = True
             for c in CONSTRAINTS:
@@ -123,7 +123,7 @@ def bts(sudoku):
                     return result
 
         assignment.pop(var, None)
-        unassigned.put(var)
+        heapq.heappush(unassigned, var)
         return False
 
     return recbts(assignment)
@@ -134,13 +134,15 @@ if __name__ == "__main__":
     board = sys.argv[1]
     sudoku = Sudoku(board)
     ac3(sudoku)
+    assignment = ""
     if sudoku.solved():
-        assignment = ""
         for key in sudoku.D.keys():
             assignment += sudoku.D[key][0]
         assignment += " AC3"
     else:
-        assignment = bts(sudoku)
+        solution = bts(sudoku)
+        for key in sudoku.sudoku.keys():
+            assignment += str(solution[key])
         assignment += " BTS"
 
     with open("output.txt", "w") as f:

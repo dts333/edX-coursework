@@ -115,6 +115,13 @@ def bts(sudoku):
                             break
                     except KeyError:
                         pass
+                if c.y == var:
+                    try:
+                        if i == assignment[c.x]:
+                            works = False
+                            break
+                    except KeyError:
+                        pass
 
             if works:
                 assignment[var] = i

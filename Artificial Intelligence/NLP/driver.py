@@ -43,3 +43,11 @@ if __name__ == "__main__":
         s += os.linesep
     with open("unigram.output.txt", "w") as f:
         f.write(s)
+    trainX = bigramizer.fit_transform(imdb.text)
+    testX = bigramizer.transform(test.text)
+    clf.fit(trainX, imdb["polarity"].astype("int"))
+    preds = clf.predict(testX)
+    s = ""
+    for y in preds:
+        s += str(y)
+        s += os.linesep
